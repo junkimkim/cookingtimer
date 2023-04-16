@@ -35,7 +35,7 @@ function NavBarComponent({ language, setLanguage }) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <LinkContainer to={`/cookingtimer/${language}`}>
+        <LinkContainer to="/">
           <Navbar.Brand style={{ fontsize: "1.5em" }}>
             CookingTimer
           </Navbar.Brand>
