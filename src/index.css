@@ -1,0 +1,126 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "Do Hyeon", sans-serif;
+}
+
+ul li a {
+  text-decoration: none;
+}
+
+ul li a.active {
+  text-decoration: underline;
+}
+
+.mainTimer {
+  margin: 30px;
+  padding: 0px;
+  text-align: center;
+}
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 45vh;
+  width: 50%;
+}
+
+.stop-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 45vh;
+  width: 70%;
+}
+
+.stop-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid white;
+  padding: 0 2rem;
+  border-radius: 0.5rem;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid white;
+  padding: 0 5rem;
+  border-radius: 0.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.time-left {
+  font-size: 5rem;
+  margin-right: 2rem;
+}
+
+.time-passed {
+  font-size: 5rem;
+  margin: 10px;
+  padding: 0px;
+  text-align: center;
+}
+
+.egg-options {
+  margin-top: 30px;
+}
+
+Button,
+DropdownButton {
+  margin: 3px;
+}
+
+.align-items-center {
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.timer-dropdown {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 1.2em;
+}
+
+.mb-3 {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.btn-warning {
+  color: rgb(0, 0, 0);
+  font-weight: 400;
+  font-size: 1.5em;
+}
+
+/* .btn-primary {
+  font-weight: 400;
+  font-size: 1.3em;
+  padding: 15px 20px;
+} */
+
+.btn-success {
+  color: white;
+  font-weight: 400;
+  font-size: 1.1em;
+}
+
+.flex-column {
+  color: white;
+  font-weight: 400;
+  font-size: 1.4em;
+}
+
+.btn-dark {
+  color: white;
+  font-weight: 400;
+  font-size: 1.3em;
+}
