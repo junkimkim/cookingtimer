@@ -47,9 +47,11 @@ ul li a.active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid white;
+  border: 5px solid white;
   padding: 0 5rem;
   border-radius: 0.5rem;
+  max-width: 440px; /* Set a minimum width */
+  max-height: 530px; /* Set a minimum height */
 }
 
 h2 {
