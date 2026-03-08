@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import EggTimer from "./EggTimer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -1306,12 +1306,6 @@ function CookingTimer({ language }) {
   const degreeNames = degreeLabels[language];
   const timeLabel = timeLabels[language];
 
-  const [selectedDuration, setSelectedDuration] = useState(0);
-
-  const handleOptionSelected = (duration) => {
-    setSelectedDuration(duration);
-  };
-
   return (
     <>
       <Row>
@@ -1321,14 +1315,12 @@ function CookingTimer({ language }) {
       </Row>
       <Row>
         <EggTimer
-          duration={selectedDuration}
           labels={labels}
           pastaNames={pastaNames}
           degreeNames={degreeNames}
           hms={hms}
           timeLabel={timeLabel}
         />
-        {/* <Test duration={selectedDuration} labels={labels} hms={hms} /> */}
       </Row>
     </>
   );

@@ -113,13 +113,13 @@ cookingtimer/
 
 ---
 
-## 7. 알려진 이슈·개선 포인트
+## 7. 알려진 이슈·개선 포인트 (반영 완료)
 
-- **CookingTimer**: `handleOptionSelected`, `selectedDuration` 미사용
-- **EggTimer**: 마카로니 탭에서 `pastaNames.rigatoni` 사용 (conchiglie 등과 불일치 가능성)
-- **EggTimer**: `useEffect` 의존성에 `formatTime` 포함 — `formatTime`은 함수라 의존성에서 제거하는 것이 적절
-- **테스트**: App.test.js는 "learn react" 텍스트 검색 — CRA 기본 템플릿 기준이라 실제 앱과 불일치
-- **다국어**: StopWatch는 영어 고정 ("StopWatch", "Elapsed time", "Lap time" 등)
+- ~~**CookingTimer**: `handleOptionSelected`, `selectedDuration` 미사용**~~ → 제거 완료
+- ~~**EggTimer**: 마카로니 탭에서 `pastaNames.rigatoni` 사용**~~ → `pastaNames.macaroni`로 수정 완료
+- ~~**EggTimer**: `useEffect` 의존성에 `formatTime` 포함**~~ → 잘못된 `clearInterval(formatTime)` 제거 완료
+- ~~**테스트**: App.test.js는 "learn react" 텍스트 검색**~~ → 네비·요리 타이머 제목 검사로 변경 완료
+- ~~**다국어**: StopWatch는 영어 고정**~~ → 21개 언어 레이블 추가, `language`/URL `:lang` 반영 완료
 
 ---
 

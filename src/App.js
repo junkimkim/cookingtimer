@@ -32,7 +32,10 @@ const App = () => {
             }
           />
           {/* <Route path={"/alarm/:lang"} element={<Alarm />} /> */}
-          <Route path={`/stopwatch/:lang`} element={<StopWatch />} />
+          <Route
+            path={`/stopwatch/:lang`}
+            element={<StopWatch language={language} />}
+          />
           {/* <Route path={`/presentime/:lang`} element={<PresentTime />} />
           <Route path={`/sound/:lang`} element={<Sound />} />
           <Route path={`/test/:lang`} element={<Test />} /> */}
