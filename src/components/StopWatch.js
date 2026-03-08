@@ -29,6 +29,11 @@ const StopWatch = () => {
   };
 
   const resetTimer = () => {
+    if (timerId) {
+      clearInterval(timerId);
+      setTimerId(null);
+    }
+    isRunning.current = false;
     setTime(0);
     setLapTime(0);
     setLaps([]);
@@ -56,9 +61,8 @@ const StopWatch = () => {
           <h1>StopWatch</h1>
         </Col>
       </Row>
-      <Row>
-        <Col></Col>
-        <Col className="stop-container">
+      <Row className="justify-content-center">
+        <Col xs={12} md={10} lg={8} className="stop-container">
           <Stack className="stop-timer">
             <Row className="time-passed mainTimer">
               <h3>Elapsed time</h3>
@@ -70,11 +74,9 @@ const StopWatch = () => {
             </Row>
             <Row>
               <Col
-                style={{
-                  justifyContent: "center",
-                  marginTop: "20px",
-                  marginBottom: "20px",
-                }}
+                xs={12}
+                className="d-flex justify-content-center flex-wrap gap-2"
+                style={{ marginTop: "20px", marginBottom: "20px" }}
               >
                 {!timerId && (
                   <>
@@ -111,8 +113,9 @@ const StopWatch = () => {
               </Col>
             </Row>
             {laps.length > 0 && (
-              <Table striped bordered hover variant="dark">
-                <thead>
+              <div className="table-responsive w-100">
+                <Table striped bordered hover variant="dark">
+                  <thead>
                   <tr>
                     <th>#</th>
                     <th>Lap time</th>
@@ -128,11 +131,11 @@ const StopWatch = () => {
                     </tr>
                   ))}
                 </tbody>
-              </Table>
+                </Table>
+              </div>
             )}
           </Stack>
         </Col>
-        <Col></Col>
       </Row>
     </>
   );

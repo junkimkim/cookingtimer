@@ -105,10 +105,11 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
     return () => clearInterval(timer);
   }, [timerActive, timeLeft, duration]);
 
-  //알람 울리기
+  //알람 울리기 및 타이머 종료 상태로 전환
   useEffect(() => {
     if (timeLeft === 0 && timerActive && hasTimerStarted) {
       playSound();
+      setTimerActive(false);
     }
   }, [timeLeft, timerActive, hasTimerStarted]);
 
@@ -125,11 +126,13 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
     }
   };
 
-  //시간 업데이트
+  //시간 업데이트 (프리셋 선택 시 남은 시간·드롭다운 동기화)
   useEffect(() => {
-    clearInterval(formatTime);
     setTimeLeft(duration);
-    setTimerActive(true);
+    setTimerActive(duration > 0);
+    setHours(Math.floor(duration / 3600));
+    setMinutes(Math.floor((duration % 3600) / 60));
+    setSeconds(duration % 60);
   }, [duration]);
 
   //타이머
@@ -189,9 +192,8 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
 
   return (
     <>
-      <Row>
-        <Col></Col>
-        <Col className="timer-container">
+      <Row className="justify-content-center">
+        <Col xs={12} md={10} lg={8} xl={6} className="timer-container">
           <Stack className="timer">
             <Row>
               <Col className="mainTimer">
@@ -204,13 +206,12 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
               </Col>
             </Row>
 
-            <Row>
+            <Row className="justify-content-center justify-content-md-start">
               <Col
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "20px",
-                }}
+                xs={12}
+                md="auto"
+                className="d-flex justify-content-center flex-wrap gap-2"
+                style={{ marginTop: "20px" }}
               >
                 <Button
                   size="lg"
@@ -220,7 +221,7 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                       setTimerActive(true);
                     } else {
                       const totalSeconds =
-                        hours * 3600 + minutes * 60 + seconds;
+                        Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds);
                       setTimeLeft(totalSeconds);
                       setTimerActive(true);
                     }
@@ -246,14 +247,21 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                 </Button>
               </Col>
 
-              <Col className="d-flex align-items-center">
+              <Col
+                xs={12}
+                md="auto"
+                className="d-flex align-items-center justify-content-center flex-wrap gap-2"
+              >
                 <Form.Group
                   controlId="hours-dropdown"
                   className="timer-dropdown"
                   inline="true"
                 >
                   <Form.Label>{`${hms.hour}:`}</Form.Label>
-                  <Form.Select onChange={(e) => setHours(e.target.value)}>
+                  <Form.Select
+                    value={Number(hours)}
+                    onChange={(e) => setHours(Number(e.target.value))}
+                  >
                     {[...Array(24)].map((_, i) => (
                       <option key={i} value={i}>
                         {i}
@@ -267,7 +275,10 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                   inline="true"
                 >
                   <Form.Label>{`${hms.minute}:`}</Form.Label>
-                  <Form.Select onChange={(e) => setMinutes(e.target.value)}>
+                  <Form.Select
+                    value={Number(minutes)}
+                    onChange={(e) => setMinutes(Number(e.target.value))}
+                  >
                     {[...Array(60)].map((_, i) => (
                       <option key={i} value={i}>
                         {i}
@@ -281,7 +292,10 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                   inline="true"
                 >
                   <Form.Label>{`${hms.second}:`}</Form.Label>
-                  <Form.Select onChange={(e) => setSeconds(e.target.value)}>
+                  <Form.Select
+                    value={Number(seconds)}
+                    onChange={(e) => setSeconds(Number(e.target.value))}
+                  >
                     {[...Array(60)].map((_, i) => (
                       <option key={i} value={i}>
                         {i}
@@ -291,7 +305,11 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                 </Form.Group>
               </Col>
 
-              <Col className="d-flex align-items-center">
+              <Col
+                xs={12}
+                md="auto"
+                className="d-flex align-items-center justify-content-center flex-wrap gap-2"
+              >
                 <DropdownButton
                   // value={selectedSound}
                   // onClick={handleSoundSelect}
@@ -316,12 +334,10 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
             </Row>
           </Stack>
         </Col>
-        <Col></Col>
       </Row>
 
-      <Row>
-        <Col></Col>
-        <Col className="egg-options" xs={5}>
+      <Row className="justify-content-center">
+        <Col xs={12} md={10} lg={8} className="egg-options">
           <Tabs
             defaultActiveKey={labels.boiledegg}
             style={{ fontSize: "1.7em" }}
@@ -785,7 +801,7 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                             variant="warning"
                             onClick={() => {
                               setDuration(11 * 60);
-                              setEggNames(pastaNames.rigatoni);
+                              setEggNames(pastaNames.macaroni);
                               window.scrollTo({ top: 0, behavior: "smooth" });
                             }}
                           >
@@ -795,7 +811,7 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                             variant="warning"
                             onClick={() => {
                               setDuration(12 * 60);
-                              setEggNames(pastaNames.rigatoni);
+                              setEggNames(pastaNames.macaroni);
                               window.scrollTo({ top: 0, behavior: "smooth" });
                             }}
                           >
@@ -805,7 +821,7 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                             variant="warning"
                             onClick={() => {
                               setDuration(13 * 60);
-                              setEggNames(pastaNames.rigatoni);
+                              setEggNames(pastaNames.macaroni);
                               window.scrollTo({ top: 0, behavior: "smooth" });
                             }}
                           >
@@ -1226,7 +1242,6 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
             </Tab>
           </Tabs>
         </Col>
-        <Col></Col>
       </Row>
     </>
   );
