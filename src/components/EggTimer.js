@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Stack } from "react-bootstrap";
@@ -72,6 +72,7 @@ const EggTimer = ({
   const [selectedSound, setSelectedSound] = useState(null);
   const [sound, setSound] = useState(null);
   // const [buttonClicked, setButtonClicked] = useState(false);
+  const tabContentRef = useRef(null);
 
   //계란 종류
   // useEffect(
@@ -122,6 +123,38 @@ const EggTimer = ({
     // selectedSound 변경 시에만 새로 정의되므로 dependency에 포함하지 않는다.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, timerActive, hasTimerStarted]);
+
+  //버튼으로 시간/계란 이름이 변경되면 화면 상단으로 스크롤
+  useEffect(() => {
+    if (duration > 0 || eggNames) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [duration, eggNames]);
+
+  const scrollToDegreeSection = () => {
+    // 모바일 화면에서만 스크롤 이동 (부트스트랩 sm 미만: < 576px)
+    if (typeof window !== "undefined" && window.innerWidth < 576) {
+      if (tabContentRef.current) {
+        tabContentRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+  };
+
+  const handlePastaNavClick = () => {
+    // 타이머 초기화
+    stop();
+    setDuration(0);
+    setHours(0);
+    setMinutes(0);
+    setSeconds(0);
+    setEggNames("");
+    handleStopSound();
+    // 익힘 정도 선택 영역으로 스크롤
+    scrollToDegreeSection();
+  };
 
   //소리 울리기
   const playSound = () => {
@@ -356,7 +389,7 @@ const EggTimer = ({
             defaultActiveKey={labels.boiledegg}
             style={{ fontSize: "1.4em" }}
             id="justify-tab-example"
-            className="mb-3"
+            className="mb-3 top-level-tabs"
             justify
             onClick={() => {
               stop();
@@ -399,12 +432,13 @@ const EggTimer = ({
             <Tab eventKey={pastaNames.pasta} title={pastaNames.pasta}>
               <Tab.Container id="left-tabs-example" defaultActiveKey="스파게티">
                 <Row>
-                  <Col sm={3}>
+                  <Col sm={3} className="order-2 order-sm-1">
                     <Nav variant="pills" className="flex-column">
                       <Nav.Item>
                         <Nav.Link
                           eventKey="스파게티"
                           style={{ fontSize: "1em" }}
+                          onClick={handlePastaNavClick}
                         >
                           {pastaNames.spaghetti}
                         </Nav.Link>
@@ -413,6 +447,7 @@ const EggTimer = ({
                         <Nav.Link
                           eventKey="링귀니"
                           style={{ fontSize: "1em" }}
+                          onClick={handlePastaNavClick}
                         >
                           {pastaNames.linguine}
                         </Nav.Link>
@@ -421,6 +456,7 @@ const EggTimer = ({
                         <Nav.Link
                           eventKey="마팔데"
                           style={{ fontSize: "1em" }}
+                          onClick={handlePastaNavClick}
                         >
                           {pastaNames.mafalde}{" "}
                           <img src={마팔데} width="20%" alt={pastaNames.mafalde} />
@@ -430,6 +466,7 @@ const EggTimer = ({
                         <Nav.Link
                           eventKey="페투치네"
                           style={{ fontSize: "1em" }}
+                          onClick={handlePastaNavClick}
                         >
                           {pastaNames.fettuccine}{" "}
                           <img src={페투치네} width="17%" alt={pastaNames.fettuccine} />
@@ -439,6 +476,7 @@ const EggTimer = ({
                         <Nav.Link
                           eventKey="탈리아텔레"
                           style={{ fontSize: "1em" }}
+                          onClick={handlePastaNavClick}
                         >
                           {pastaNames.tagliatelle}{" "}
                           <img src={탈리아텔레} width="20%" alt={pastaNames.tagliatelle} />
@@ -448,6 +486,7 @@ const EggTimer = ({
                         <Nav.Link
                           eventKey="리가토니"
                           style={{ fontSize: "1em" }}
+                          onClick={handlePastaNavClick}
                         >
                           {pastaNames.rigatoni}{" "}
                           <img src={리가토니} width="20%" alt={pastaNames.rigatoni} />
@@ -457,13 +496,18 @@ const EggTimer = ({
                         <Nav.Link
                           eventKey="마카로니"
                           style={{ fontSize: "1em" }}
+                          onClick={handlePastaNavClick}
                         >
                           {pastaNames.macaroni}{" "}
                           <img src={마카로니} width="20%" alt={pastaNames.macaroni} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="펜네" style={{ fontSize: "1em" }}>
+                        <Nav.Link
+                          eventKey="펜네"
+                          style={{ fontSize: "1em" }}
+                          onClick={handlePastaNavClick}
+                        >
                           {pastaNames.penne}{" "}
                           <img src={펜네} width="20%" alt={pastaNames.penne} />
                         </Nav.Link>
@@ -507,8 +551,8 @@ const EggTimer = ({
                       </Nav.Item>
                     </Nav>
                   </Col>
-                  <Col sm={9}>
-                    <Tab.Content>
+                  <Col sm={9} className="order-1 order-sm-2">
+                    <Tab.Content ref={tabContentRef}>
                       <Tab.Pane eventKey="스파게티">
                         <Stack gap={2} className="col-md-5 mx-auto">
                           <Button

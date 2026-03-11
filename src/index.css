@@ -134,6 +134,76 @@ h2 {
   text-align: center;
 }
 
+/* 모바일(작은 화면)에서 글자 크기와 여백 조정 */
+@media (max-width: 575.98px) {
+  .mainTimer {
+    font-size: 1.1rem;
+    margin: 16px 8px;
+  }
+
+  .egg-timer-small {
+    font-size: 1rem;
+  }
+
+  .egg-timer-small .time-left {
+    font-size: clamp(2.2rem, 12vw, 3rem);
+    margin-right: 0;
+  }
+
+  .egg-timer-small .time-passed {
+    font-size: clamp(2rem, 13vw, 2.8rem);
+  }
+
+  .egg-timer-small .timer-dropdown {
+    font-size: 0.95em;
+  }
+
+  .egg-timer-small .mb-3 {
+    font-size: 1.1em;
+  }
+
+  .egg-timer-small .btn-warning {
+    font-size: 1.1em;
+  }
+
+  .btn-success {
+    font-size: 0.95em;
+  }
+
+  .flex-column {
+    font-size: 1.1em;
+  }
+
+  /* 모바일에서는 탭 4개를 세로로 4행 1열 */
+  .top-level-tabs {
+    display: block;
+  }
+
+  .top-level-tabs .nav-item {
+    display: block;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+/* 태블릿 구간(부트스트랩 sm~md: 576px~991.98px)에서는 2행 2열 */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .top-level-tabs .nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .top-level-tabs .nav-item {
+    flex: 0 0 50%;
+    max-width: 50%;
+    text-align: center;
+  }
+}
+
+/* 데스크톱(992px 이상)은 부트스트랩 기본값(1행 4열)을 사용 */
+
 .egg-options {
   margin-top: 30px;
 }
