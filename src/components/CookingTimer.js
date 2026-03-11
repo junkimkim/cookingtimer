@@ -3,7 +3,7 @@ import EggTimer from "./EggTimer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function CookingTimer({ language }) {
+function CookingTimer({ language, timerFontScale }) {
   const eggLabels = {
     en: {
       name: "Cooking Timer",
@@ -1310,17 +1310,20 @@ function CookingTimer({ language }) {
     <>
       <Row>
         <Col className="mainTimer">
-          <h2>{labels.name}</h2>
+          <h3>{labels.name}</h3>
         </Col>
       </Row>
-      <Row>
-        <EggTimer
-          labels={labels}
-          pastaNames={pastaNames}
-          degreeNames={degreeNames}
-          hms={hms}
-          timeLabel={timeLabel}
-        />
+      <Row className="justify-content-center">
+        <Col xs="auto">
+          <EggTimer
+            labels={labels}
+            pastaNames={pastaNames}
+            degreeNames={degreeNames}
+            hms={hms}
+            timeLabel={timeLabel}
+            fontScale={timerFontScale}
+          />
+        </Col>
       </Row>
     </>
   );

@@ -13,6 +13,7 @@ ul li a.active {
 }
 
 .mainTimer {
+  font-size: 1.5rem;
   margin: 30px;
   padding: 0px;
   text-align: center;
@@ -58,7 +59,53 @@ ul li a.active {
   border-radius: 0.5rem;
   width: 100%;
   max-width: 440px;
-  max-height: 530px;
+}
+
+.theme-dark {
+  background-color: black;
+  color: white;
+}
+
+.theme-light {
+  /* 채도가 낮은 밝은 회색 톤 */
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.theme-light .timer,
+.theme-light .stop-timer {
+  background-color: #f3f4f6;
+  border-color: #4b5563;
+}
+
+.theme-light .time-left,
+.theme-light .time-passed,
+.theme-light .flex-column {
+  color: #111827;
+}
+
+.egg-timer-small {
+  font-size: 1.5rem;
+}
+
+.egg-timer-small .time-left {
+  font-size: 4rem;
+}
+
+.egg-timer-small .time-passed {
+  font-size: clamp(2rem, 8vw, 4rem);
+}
+
+.egg-timer-small .timer-dropdown {
+  font-size: 1.2em;
+}
+
+.egg-timer-small .mb-3 {
+  font-size: 1.3em;
+}
+
+.egg-timer-small .btn-warning {
+  font-size: 1.3em;
 }
 
 @media (min-width: 768px) {
@@ -105,7 +152,7 @@ DropdownButton {
 .timer-dropdown {
   margin-left: 5px;
   margin-right: 5px;
-  font-size: 1.2em;
+  font-size: 1.3em;
 }
 
 .mb-3 {

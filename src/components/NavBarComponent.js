@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Button from "react-bootstrap/Button";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,7 +32,16 @@ const languageOptions = [
   { name: "日本語", code: "ja" },
 ];
 
-function NavBarComponent({ language, setLanguage }) {
+function NavBarComponent({ language, setLanguage, timerFontScale, setTimerFontScale }) {
+
+  const handleIncreaseFont = () => {
+    setTimerFontScale((prev) => Math.min(1.5, prev + 0.1));
+  };
+
+  const handleDecreaseFont = () => {
+    setTimerFontScale((prev) => Math.max(0.7, prev - 0.1));
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -59,8 +69,25 @@ function NavBarComponent({ language, setLanguage }) {
               <Nav.Link>현재시간</Nav.Link>
             </LinkContainer> */}
             {/* <LinkContainer to={`/worldtime/${language}`}>
-              <Nav.Link>세계시간</Nav.Link>
+            <Nav.Link>세계시간</Nav.Link>
             </LinkContainer> */}
+          </Nav>
+          <Nav className="align-items-center me-3">
+            <Button
+              variant="outline-light"
+              size="sm"
+              onClick={handleIncreaseFont}
+              className="me-1"
+            >
+              A+
+            </Button>
+            <Button
+              variant="outline-light"
+              size="sm"
+              onClick={handleDecreaseFont}
+            >
+              A-
+            </Button>
           </Nav>
           <Nav>
             <LanguageDropdown setLanguage={setLanguage} />

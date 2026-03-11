@@ -53,7 +53,14 @@ const audioClips = [
   },
 ];
 
-const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
+const EggTimer = ({
+  labels,
+  hms,
+  pastaNames,
+  degreeNames,
+  timeLabel,
+  fontScale = 1,
+}) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
   const [eggNames, setEggNames] = useState("");
@@ -111,6 +118,9 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
       playSound();
       setTimerActive(false);
     }
+    // playSound는 useEffect 안에서만 호출되고,
+    // selectedSound 변경 시에만 새로 정의되므로 dependency에 포함하지 않는다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, timerActive, hasTimerStarted]);
 
   //소리 울리기
@@ -194,19 +204,22 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
     <>
       <Row className="justify-content-center">
         <Col xs={12} md={10} lg={8} xl={6} className="timer-container">
-          <Stack className="timer">
+          <Stack className="timer text-center egg-timer-small">
             <Row>
               <Col className="mainTimer">
-                <h2>{eggNames}</h2>
+                <h1 style={{ fontSize: `${2 * fontScale}rem` }}>{eggNames}</h1>
               </Col>
             </Row>
             <Row>
-              <Col className="time-passed mainTimer">
+              <Col
+                className="time-passed mainTimer"
+                style={{ fontSize: `${4 * fontScale}rem` }}
+              >
                 {formatTime(timeLeft)}
               </Col>
             </Row>
 
-            <Row className="justify-content-center justify-content-md-start">
+            <Row className="justify-content-center">
               <Col
                 xs={12}
                 md="auto"
@@ -339,8 +352,9 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
       <Row className="justify-content-center">
         <Col xs={12} md={10} lg={8} className="egg-options">
           <Tabs
+            key={labels.boiledegg}
             defaultActiveKey={labels.boiledegg}
-            style={{ fontSize: "1.7em" }}
+            style={{ fontSize: "1.4em" }}
             id="justify-tab-example"
             className="mb-3"
             justify
@@ -390,7 +404,7 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                       <Nav.Item>
                         <Nav.Link
                           eventKey="스파게티"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.spaghetti}
                         </Nav.Link>
@@ -398,7 +412,7 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                       <Nav.Item>
                         <Nav.Link
                           eventKey="링귀니"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.linguine}
                         </Nav.Link>
@@ -406,86 +420,89 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                       <Nav.Item>
                         <Nav.Link
                           eventKey="마팔데"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
-                          {pastaNames.mafalde} <img src={마팔데} width="20%" />
+                          {pastaNames.mafalde}{" "}
+                          <img src={마팔데} width="20%" alt={pastaNames.mafalde} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="페투치네"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.fettuccine}{" "}
-                          <img src={페투치네} width="17%" />
+                          <img src={페투치네} width="17%" alt={pastaNames.fettuccine} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="탈리아텔레"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.tagliatelle}{" "}
-                          <img src={탈리아텔레} width="20%" />
+                          <img src={탈리아텔레} width="20%" alt={pastaNames.tagliatelle} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="리가토니"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.rigatoni}{" "}
-                          <img src={리가토니} width="20%" />
+                          <img src={리가토니} width="20%" alt={pastaNames.rigatoni} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="마카로니"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.macaroni}{" "}
-                          <img src={마카로니} width="20%" />
+                          <img src={마카로니} width="20%" alt={pastaNames.macaroni} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="펜네" style={{ fontSize: "1.2em" }}>
-                          {pastaNames.penne} <img src={펜네} width="20%" />
+                        <Nav.Link eventKey="펜네" style={{ fontSize: "1em" }}>
+                          {pastaNames.penne}{" "}
+                          <img src={펜네} width="20%" alt={pastaNames.penne} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="파르팔레"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.farfalle}{" "}
-                          <img src={파르팔레} width="20%" />
+                          <img src={파르팔레} width="20%" alt={pastaNames.farfalle} />
                         </Nav.Link>
                       </Nav.Item>
 
                       <Nav.Item>
                         <Nav.Link
                           eventKey="푸실리"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
-                          {pastaNames.fusilli} <img src={푸실리} width="20%" />
+                          {pastaNames.fusilli}{" "}
+                          <img src={푸실리} width="20%" alt={pastaNames.fusilli} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="콘킬리에"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.conchiglie}{" "}
-                          <img src={콘킬리에} width="20%" />
+                          <img src={콘킬리에} width="20%" alt={pastaNames.conchiglie} />
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="프레골라"
-                          style={{ fontSize: "1.2em" }}
+                          style={{ fontSize: "1em" }}
                         >
                           {pastaNames.fregola}{" "}
-                          <img src={프레골라} width="20%" />
+                          <img src={프레골라} width="20%" alt={pastaNames.fregola} />
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
@@ -908,17 +925,17 @@ const EggTimer = ({ labels, hms, pastaNames, degreeNames, timeLabel }) => {
                   <Col sm={3}>
                     <Nav variant="pills" className="flex-column">
                       <Nav.Item>
-                        <Nav.Link eventKey="초" style={{ fontSize: "1.2em" }}>
+                        <Nav.Link eventKey="초" style={{ fontSize: "1em" }}>
                           {hms.second}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="분" style={{ fontSize: "1.2em" }}>
+                        <Nav.Link eventKey="분" style={{ fontSize: "1em" }}>
                           {hms.minute}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="시" style={{ fontSize: "1.2em" }}>
+                        <Nav.Link eventKey="시" style={{ fontSize: "1em" }}>
                           {hms.hour}
                         </Nav.Link>
                       </Nav.Item>
